@@ -1,0 +1,25 @@
+{
+  "name": "serviceDev",
+  "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
+  "features": {
+    "ghcr.io/devcontainers/features/go:1": {
+      "version": "1.23"
+    },
+    "ghcr.io/devcontainers/features/docker-in-docker:2": {},
+    "ghcr.io/dhoeric/features/act:1": {}
+  },
+  "mounts": [
+    "type=bind,source=${localEnv:HOME}/.ssh,target=/root/.ssh,readonly",
+    "type=bind,source=${localEnv:HOME}/.gitconfig,target=/root/.gitconfig,readonly",
+    "type=bind,source=${localEnv:HOME}/.tmux.conf,target=/root/.tmux.conf,readonly",
+    "type=bind,source=${localEnv:HOME}/.tmux,target=/root/.tmux,readonly",
+    "type=bind,source=${localEnv:HOME}/.aws,target=/root/.aws,readonly"
+  ],
+  "customizations": {
+    "vscode": {
+      "extensions": ["golang.go", "ms-vscode.go-tools"]
+    }
+  },
+  "postCreateCommand": "go mod tidy && go install golang.org/x/tools/gopls@latest",
+  "remoteUser": "vscode"
+}
